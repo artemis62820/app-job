@@ -2,8 +2,70 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Tracker d'Emplois - Style Rétro</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Recherche d'emploi - Rétro Style</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  body {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #3b2f2f; /* marron foncé */
+    color: #f0d49b; /* beige doré */
+    margin: 0;
+    padding: 20px;
+    text-shadow: 1px 1px #000; /* ombré léger sur tout le texte */
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 16px;
+    color: #eec97b;
+    text-shadow: 2px 2px #000;
+  }
+
+  .job-form input,
+  .job-form select,
+  .job-form button {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    margin: 5px;
+    padding: 5px;
+    background-color: #5a4534;
+    color: #f0d49b;
+    border: 2px solid #d4a373;
+    text-shadow: 1px 1px #000;
+  }
+
+  .job-list {
+    margin-top: 20px;
+  }
+
+  .job-card {
+    background: #4b3621;
+    border: 2px dashed #d4a373;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px #000;
+  }
+
+  a {
+    color: #ffe27a;
+    text-shadow: 1px 1px #000;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  @keyframes glow {
+    0% { border-color: #d4a373; }
+    50% { border-color: #f0d49b; }
+    100% { border-color: #d4a373; }
+  }
+
+  .job-card:hover {
+    animation: glow 1s infinite;
+  }
+</style>
 </head>
 <body>
   <h1>🎮 Tracker d'Emplois - Mode Rétro</h1>
@@ -23,11 +85,70 @@
 
   <div class="job-list" id="jobList"></div>
 
-  <!-- Héros pixel animé -->
-  <div class="pixel-hero">
-    <img src="assets/hero.gif" alt="Héros pixel" width="64" height="64">
-  </div>
+  <script>
+    let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 
-  <script src="script.js"></script>
+    function saveJobs() {
+      localStorage.setItem("jobs", JSON.stringify(jobs));
+    }
+
+    function renderJobs() {
+      const jobList = document.getElementById("jobList");
+      jobList.innerHTML = "";
+
+      jobs.forEach((job, index) => {
+        const card = document.createElement("div");
+        card.className = "job-card";
+
+        card.innerHTML = `
+          <strong>${job.title}</strong> chez <em>${job.company}</em><br>
+          Statut: 
+          <select onchange="updateStatus(${index}, this.value)">
+            <option ${job.status === "À postuler" ? "selected" : ""}>À postuler</option>
+            <option ${job.status === "Postulé" ? "selected" : ""}>Postulé</option>
+            <option ${job.status === "Entretien" ? "selected" : ""}>Entretien</option>
+            <option ${job.status === "Refus" ? "selected" : ""}>Refus</option>
+          </select><br>
+          <a href="${job.link}" target="_blank">Voir l'offre</a><br>
+          <button onclick="deleteJob(${index})">🗑 Supprimer</button>
+        `;
+        jobList.appendChild(card);
+      });
+    }
+
+    function addJob() {
+      const title = document.getElementById("title").value.trim();
+      const company = document.getElementById("company").value.trim();
+      const link = document.getElementById("link").value.trim();
+      const status = document.getElementById("status").value;
+
+      if (title && company && link) {
+        jobs.push({ title, company, link, status });
+        saveJobs();
+        renderJobs();
+        document.getElementById("title").value = "";
+        document.getElementById("company").value = "";
+        document.getElementById("link").value = "";
+        document.getElementById("status").value = "À postuler";
+      } else {
+        alert("Veuillez remplir tous les champs.");
+      }
+    }
+
+    function deleteJob(index) {
+      if (confirm("Supprimer cette offre ?")) {
+        jobs.splice(index, 1);
+        saveJobs();
+        renderJobs();
+      }
+    }
+
+    function updateStatus(index, newStatus) {
+      jobs[index].status = newStatus;
+      saveJobs();
+    }
+
+    renderJobs();
+  </script>
 </body>
 </html>
