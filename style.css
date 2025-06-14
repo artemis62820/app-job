@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  font-family: 'Press Start 2P', monospace;
+  background-color: #3b2f2f;
+  color: #f0d49b;
+  margin: 0;
+  padding: 20px;
+  text-shadow: 1px 1px #000;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1 {
+  text-align: center;
+  font-size: 16px;
+  color: #eec97b;
+  text-shadow: 2px 2px #000;
+}
+
+.job-form input,
+.job-form select,
+.job-form button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  margin: 5px;
+  padding: 5px;
+  background-color: #5a4534;
+  color: #f0d49b;
+  border: 2px solid #d4a373;
+  text-shadow: 1px 1px #000;
+}
+
+.job-list {
+  margin-top: 20px;
+}
+
+.job-card {
+  background: #4b3621;
+  border: 2px dashed #d4a373;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px #000;
+}
+
+a {
+  color: #ffe27a;
+  text-shadow: 1px 1px #000;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Animation de bordure au survol */
+@keyframes glow {
+  0% { border-color: #d4a373; }
+  50% { border-color: #f0d49b; }
+  100% { border-color: #d4a373; }
+}
+
+.job-card:hover {
+  animation: glow 1s infinite;
+}
+
+/* Fond étoilé animé */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url("assets/stars-pixel.png") repeat;
+  z-index: -1;
+  animation: scrollStars 60s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes scrollStars {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 1000px; }
+}
+
+/* Héros pixel animé */
+.pixel-hero {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+}

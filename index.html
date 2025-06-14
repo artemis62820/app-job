@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Tracker d'Emplois - Style Rétro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🎮 Tracker d'Emplois - Mode Rétro</h1>
+
+  <div class="job-form">
+    <input type="text" id="title" placeholder="Titre de l'emploi">
+    <input type="text" id="company" placeholder="Entreprise">
+    <input type="url" id="link" placeholder="Lien vers l'offre">
+    <select id="status">
+      <option value="À postuler">À postuler</option>
+      <option value="Postulé">Postulé</option>
+      <option value="Entretien">Entretien</option>
+      <option value="Refus">Refus</option>
+    </select>
+    <button onclick="addJob()">Ajouter</button>
+  </div>
+
+  <div class="job-list" id="jobList"></div>
+
+  <!-- Héros pixel animé -->
+  <div class="pixel-hero">
+    <img src="assets/hero.gif" alt="Héros pixel" width="64" height="64">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
